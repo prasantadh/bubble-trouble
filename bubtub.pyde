@@ -22,11 +22,22 @@ class Shooter():
 
 
 class Balloon():
-    def __init__(self):
+    def __init__(self, r):
+        self.r = r
+        self.x = self.r + 50 ## 50 is the initial offset
+        self.y = game.g - self.jump(r) 
+    
+    def jump(self, r):
+        return 10*r
+    
+    def display(self):
+        stroke(255)
+        ellipse(self.x, self.y, 2*self.r, 2*self.r)
+    
         
-        
-game = Game(600,420,400)
+game = Game(600,500,400)
 shooter = Shooter(20, 30)
+balloon = Balloon(10)
     
 def setup():
     background(0)
@@ -35,6 +46,7 @@ def setup():
 def draw():
     game.display()
     shooter.display()
+    balloon.display()
 
 def keyPressed():
     print(keyCode)
