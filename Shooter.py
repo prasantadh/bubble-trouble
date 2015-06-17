@@ -13,14 +13,15 @@ class Shooter():
         
     def update(self):
         if self.controls[LEFT]:
-            self.v = -3
+            self.v = -5
         elif self.controls[RIGHT]:
-            self.v = 3
-        elif self.controls[32]:
-            if self.arrow == None:
-                self.arrow = Arrow(self.game, self.x)
+            self.v = 5
         else:
             self.v = 0
+            
+        if self.controls[32]:
+            if self.arrow == None:
+                self.arrow = Arrow(self.game, self.x)
         
         #reset the arrow for shooter once the arrow reaches top
         ## also needs to reset the arrow once it hits the balloon. do it later.        

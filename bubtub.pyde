@@ -1,12 +1,16 @@
 from Shooter import Shooter as Shooter
 from Bubble import Bubble as Bubble
-from Arrow import Arrow as Arrow
 
 class Game():
     def __init__(self, w, h, g):
         self.w = w
         self.h = h 
         self.g = g
+        self.bubbles = []
+        self.bubbles.append(Bubble(self, 40))
+    
+#     def update(self):
+        
     
     def display(self):
         background(0)
@@ -28,9 +32,8 @@ def draw():
     background(0)
     game.display()
     shooter.display()
-    bubble0.display()
-    bubble1.display()
-    bubble2.display()
+    for bubble in game.bubbles:
+        bubble.display()
 
 def keyPressed():
 #     print(keyCode, type(keyCode))
