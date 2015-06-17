@@ -4,11 +4,11 @@ class Bubble():
         self.r = r
         self.x = self.r + 50 ## 50 is the initial offset
         self.y = self.game.g - self.jumpHeight(r) 
-        self.vx = 2
+        self.vx = 3
         self.vy = 1
     
     def jumpHeight(self, r):
-        return ( 100 * (r//10) ) ## The height of shooter is hard-coded. adjust this later !error alert
+        return ( 100 * (r//10) - 30 * 0.2) ## The height of shooter is hard-coded. adjust this later !error alert
     
     def update(self):
         self.x += self.vx
@@ -29,4 +29,5 @@ class Bubble():
     def display(self):
         self.update()
         stroke(255)
+        fill(255)
         ellipse(self.x, self.y, 2*self.r, 2*self.r)
