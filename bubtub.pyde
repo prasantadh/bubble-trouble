@@ -7,21 +7,45 @@ class Game():
         self.h = h 
         self.g = g
         self.bubbles = []
-        self.bubbles.append(Bubble(self, 40))
+        self.bubbles.append(Bubble(self, 20, 90, 100, 1, 1)) 
     
-#     def update(self):
+    def update(self):
+        temp =  []
+        if shooter.arrow != None and shooter.hitsBubble():
+            if self.victory():
+                print("Congratulations!")
+        elif self.dead():
+            print("Oops! you died!")
+        else:
+            pass
+        
+    def victory(self):
+        print(self.bubbles)
+        if self.bubbles == []:
+            return True
+        return False
+    
+    def dead(self):
+        for bubble in self.bubbles:
+            print(bubble.x + bubble.r, shooter.x - shooter.w)
+#             print((bubble.x + bubble.r > shooter.x - shooter.w or bubble.x - bubble.r < shooter.x + shooter.w) and bubble.y + bubble.r > game.g - shooter.h)
+            if (bubble.x + bubble.r > shooter.x - shooter.w and bubble.x - bubble.r < shooter.x + shooter.w) and (bubble.y + bubble.r > game.g - shooter.h):
+                return True 
+        return False
+    
+    def over(self):
+        if self.victory() or self.dead():
+            return True
+        return False
         
     
     def display(self):
-        background(0)
+        #background(0)
         stroke(255)
         line(0, game.g, self.w, self.g)    
-        
+bgc = 0       
 game = Game(900,600,500)
 shooter = Shooter(game, 20, 30)
-bubble0 = Bubble(game, 40)
-bubble1 = Bubble(game, 20)
-bubble2 = Bubble(game, 10)
     
 def setup():
     background(0)
@@ -29,7 +53,7 @@ def setup():
     frameRate(50)
 
 def draw():
-    background(0)
+    background(bgc)
     game.display()
     shooter.display()
     for bubble in game.bubbles:

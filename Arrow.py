@@ -1,3 +1,5 @@
+# from Shooter import Shooter as Shooter
+
 class Arrow():
     def __init__(self, game, x):
         self.game = game
@@ -6,7 +8,7 @@ class Arrow():
         self.l =  30 ## l for length, hardcoded height of the shooter
     
     def update(self):
-        self.l += 5
+        self.l += 10
     
     def display(self):
         self.update()
