@@ -2,8 +2,9 @@ from Arrow import Arrow as Arrow
 from Bubble import Bubble as Bubble
 
 class Shooter():
-    def __init__(self, game, w, h):
+    def __init__(self, game, w, h, name=''):
         self.game = game
+        self.name = name
         self.w = w
         self.h = h
         self.x = self.game.w/2
@@ -11,6 +12,7 @@ class Shooter():
         self.v = 0
         self.controls = {LEFT : False, RIGHT : False, 32 : False} #32 is for detecting the spacebar pressed and released
         self.arrow = None
+        self.img = loadImage("megamanrun.png")
         
     def update(self):
         if self.controls[LEFT]:
@@ -21,16 +23,14 @@ class Shooter():
             self.v = 0
         if self.controls[32]:
             if self.arrow == None:
-                self.arrow = Arrow(self.game, self.x)
+                self.arrow = Arrow(self.game, self.x, self.h)
         
         ## reset the arrow for shooter once the arrow reaches top
         ## also reset arrow once the bubble is hit. done in the game.update()        
         if  self.arrow != None and self.game.g - self.arrow.l < 0:
             self.arrow = None
-        elif self.arrow  != None or (self.arrow == None and self.game.bubbles == []):
-            self.game.update()
-        else:
-            pass
+#         elif self.arrow  != None or (self.arrow == None and self.game.bubbles == []):
+#             self.game.update()
             
         
         self.x += self.v
@@ -75,3 +75,4 @@ class Shooter():
         stroke(255)
         fill(255,0,0)
         ellipse(self.x, self.y, 2*self.w, 2*self.h)
+        image(self.img, self.x-self.w, self.y-self.w-15, self.w*2.3, self.h*2.3, 0, 0, 210, 260)
