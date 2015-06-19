@@ -5,14 +5,14 @@ class Bubble():
         self.r = r
         self.x = x
         self.y = y 
-        self.vx = 2 * vx
+        self.vx = (1 + self.r//10) * vx 
         self.vy = vy
         self.smallest = 10 
     
     def update(self):
         self.x += self.vx
         self.y += self.vy
-        self.vy+= 0.2
+        self.vy+= 0.3 - 0.005 * (self.r//10)
         
         if self.y + self.r > self.game.g:
             self.y = self.game.g - self.r

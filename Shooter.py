@@ -59,8 +59,10 @@ class Shooter():
                         self.game.bubbles.pop(index)
                     ## the arrow disappears
                     self.arrow = None
+                    self.game.score += 1
                     ## no more bubbles to check for that arrow
                     break
+                
         if temp!= []:
             self.game.bubbles = [] + temp
         return output
