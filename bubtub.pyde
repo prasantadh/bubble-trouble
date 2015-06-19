@@ -2,21 +2,29 @@ from Shooter import Shooter as Shooter
 from Bubble import Bubble as Bubble
 
 class Game():
-    def __init__(self, w, h, g):
+    def __init__(self, w, h, g, initBub):
         self.w = w
         self.h = h 
         self.g = g
         self.state = "Menu"
+        self.initBub = initBub
         self.bubbles = []
-        self.bubbles.append(Bubble(self, 40, 90, 100, 1, 1)) 
+        for j in range(initBub):
+            self.bubbles.append(Bubble(self, 10, 90 * (j+1), 100, 1+j, 1)) 
         self.img =  loadImage("megaman.jpg")
         self.img2 = loadImage("ground.png")
+        self.img_menu = loadImage("menu.png")
+        self.img_gameover = loadImage("gameover.png")
+        self.font = loadFont("PressStart2P-14.vlw")
     
     def update(self):
         temp =  []
         if shooter.arrow != None and shooter.hitsBubble():
             if self.victory():
                 print("Congratulations!")
+                self.initBub += 1
+                self.__init__(900, 600, 500, game.initBub)
+                self.state = "Playing"
         elif self.dead():
             print("Oops! you died!")
             game.state = "Over"
@@ -46,7 +54,7 @@ class Game():
         image(self.img, 0, 0, game.w, game.h)
         image(self.img2,0, game.g, game.w, game.h - game.g)    
               
-game = Game(900,600,500)
+game = Game(900,600,500, 1)
 shooterWidth = 20
 shooterHeight = 30
 shooter = Shooter(game, shooterWidth, shooterHeight)
@@ -58,11 +66,16 @@ def setup():
 
 def draw():
     if game.state == "Menu":
-        background(255, 0, 0)
-        textSize(24)
+        background(game.img_menu)
+        textFont(game.font)
         fill(0)
-        text("Enter your name: ", 50, 50)
-        text(shooter.name, 250, 50)
+        stroke(255, 255, 255)
+        textSize(14)
+        fill(255)
+        text("Enter your name: ", 165, 275)
+        fill(255)
+        text(shooter.name, 245-4.7*len(shooter.name), 305)
+        
         
     elif game.state == "Playing":
         background(0)
@@ -74,7 +87,7 @@ def draw():
         for bubble in game.bubbles:
             bubble.display()
     else:
-        background(0,255,0)
+        background(game.img_gameover)
 
 def keyPressed():
     if game.state == "Playing":
@@ -85,7 +98,7 @@ def keyPressed():
             shooter.name = shooter.name[:len(shooter.name)-1]
         elif keyCode == 10:
             game.state = "Playing"
-        else:
+        elif len(shooter.name) <= 10:
             shooter.name += str(key)
     
     
@@ -96,7 +109,7 @@ def keyReleased():
 def mouseClicked():
     if game.state == "Over":
         game.state = "Menu"
-        game.__init__(game.w, game.h, game.g)
+        game.__init__(game.w, game.h, game.g, 1)
         shooter.__init__(game, shooterWidth, shooterHeight, shooter.name)
     
     

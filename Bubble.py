@@ -9,18 +9,6 @@ class Bubble():
         self.vy = vy
         self.smallest = 10 
     
-    def jumpHeight(self, r):
-        return ( 100 * (r//10) - 30 * 0.2) ## The height of shooter is hard-coded. adjust this later !error alert
-    
-#     def isHit(self):
-#         if 
-    def setX(self, x):
-        self.x = x
-    
-    def setY(self, y):
-        self.y = y
-    
-    
     def update(self):
         self.x += self.vx
         self.y += self.vy
@@ -40,7 +28,6 @@ class Bubble():
     
     def display(self):
         self.update()
-        self.game.update()
         stroke(255)
         fill(255)
         ellipse(self.x, self.y, 2*self.r, 2*self.r)
